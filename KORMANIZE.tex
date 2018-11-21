@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amssymb,enumitem,caption}
+\usepackage{hyperref}
+\usepackage{nameref}
+%\usepackage{titlecaps}
+\hypersetup{
+    colorlinks = false,
+    hidelinks
+}
+
+
+\makeatletter
+\let\kormanizedescriptionlabel\descriptionlabel
+\renewcommand*{\descriptionlabel}[1]{%
+  \let\kormanizelabel\label
+  \let\label\@gobble
+  \phantomsection
+  \edef\@currentlabel{#1}%
+  \let\label\kormanizelabel
+  \kormanizedescriptionlabel{#1}%
+}
+\makeatother
+
+\def\figureautorefname{Argument}
+
+\newcommand{\proposition}[1]{\mbox{\ref{#1}}}
+\renewcommand{\thefigure}{\Alph{figure}}
+
+\newcounter{argument}
+\newcounter{proposition}
+
+\newenvironment{kormanize}[1][\Alph{argument}]{%
+\stepcounter{argument}
+\stepcounter{proposition}
+
+\newcommand{\premise}[2][\Alph{argument}\arabic{proposition}]{\item[##1\label{\Alph{argument}:\arabic{proposition}}]~##2\stepcounter{proposition}}
+\newcommand{\conclusion}[2][\Alph{argument}\arabic{proposition}]{\item[##1\label{##1}]~\(\therefore\)~##2
+\stepcounter{proposition}}
+\newcommand{\argument}[1]{\caption{{##1}}\label{fig:#1}}
+\renewcommand{\figurename}{Argument}
+
+\begin{figure}[h]\begin{description}\itemsep=-3pt}
+{\end{description}\end{figure}\renewcommand{\figurename}{Figure}\setcounter{proposition}{0}}
+
+\begin{document}
+
+\begin{kormanize}[IPA]
+\premise[Probabilism]{The language of probability is the best way to describe what we know.}
+\premise{A significant proportion of what we know involves causal relationships.}
+\premise{The language of probability is insufficient for describing causal relationships.}
+\premise{If \proposition{A:2} and \proposition{A:3}, then \proposition{A:1} is false.}
+\conclusion{\proposition{A:1} is false.}
+\argument{Insufficiency of Probability Argument}
+\end{kormanize}
+
+
+As shown in \proposition{A:2} we know that
+
+~\nameref{fig:IPA}
+
+~\autoref{fig:IPA}
+
+\end{document}
+
