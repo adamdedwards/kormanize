@@ -11,9 +11,9 @@
 
 \newenvironment{kormanize}[1][\Alph{argument}]{%
 
-\newcommand{\premise}[2][(\Alph{argument}\arabic{proposition})]{\item[##1\refstepcounter{proposition}\label{\Alph{argument}\arabic{proposition}}]~##2}
+\newcommand{\premise}[2][(\Alph{argument}\arabic{proposition})]{\refstepcounter{proposition}\item[##1\label{\Alph{argument}\arabic{proposition}}]~##2}
 
-\newcommand{\conclusion}[2][(\Alph{argument}\arabic{proposition})]{\item[##1\refstepcounter{proposition}\label{\Alph{argument}\arabic{proposition}}]~\(\therefore\)~##2}
+\newcommand{\conclusion}[2][(\Alph{argument}\arabic{proposition})]{\refstepcounter{proposition}\item[##1\label{\Alph{argument}\arabic{proposition}}]~\(\therefore\)~##2}
 
 \newenvironment{argument}[1][]{\refstepcounter{argument}\begin{figure}[h]\begin{description}\itemsep=-3pt}
 {\end{description}\end{figure}}
