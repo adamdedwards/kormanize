@@ -3,31 +3,31 @@
 
 \RequirePackage{enumitem}
 \RequirePackage{amssymb}
+\RequirePackage[hidelinks]{hyperref}
 
 \newcommand{\proposition}[1]{\mbox{\ref{#1}}}
 
 \newcounter{argument}
 \newcounter{proposition}[argument]
 
+\newcommand{\proplabel}[2]{\begingroup
+    #2%
+    \def\@currentlabel{#2}%
+    \phantomsection\label{#1}\endgroup
+}
+
 \newenvironment{kormanize}[1][\Alph{argument}]{%
 
-\newcommand{\premise}[2][(\Alph{argument}\arabic{proposition})]{\refstepcounter{proposition}\item[##1\label{\Alph{argument}\arabic{proposition}}]~##2}
+\newcommand{\premise}[2][#1\arabic{proposition}]{%
+  \refstepcounter{proposition}\item[\proplabel{prop:##1}{(##1)}]~##2
+  }
 
-\newcommand{\conclusion}[2][(\Alph{argument}\arabic{proposition})]{\refstepcounter{proposition}\item[##1\label{\Alph{argument}\arabic{proposition}}]~\(\therefore\)~##2}
+\newcommand{\conclusion}[2][#1\arabic{proposition}]{%
+  \refstepcounter{proposition}\item[\proplabel{prop:##1}{(##1)}]~\(\therefore\)~##2
+}
 
-\newenvironment{argument}[1][]{\refstepcounter{argument}\begin{figure}[h]\begin{description}\itemsep=-3pt}
-{\end{description}\end{figure}}
-
-
-\begin{argument}
-}{\end{argument}}
-
-
-
-
-
-
-
+\refstepcounter{argument}\begin{figure}[h]\begin{description}\itemsep=-3pt
+}{\end{description}\end{figure}}
 
 
 
